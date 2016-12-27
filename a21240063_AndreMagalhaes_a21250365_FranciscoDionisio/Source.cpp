@@ -9,8 +9,7 @@
 #include <ctime>
 
 
-
-//teste
+// fghjklkjhg
 
 void desenharCaixa(int x, int y, int dimX, int dimY) {
 	for (int i = 0; i < dimY; i++) {
