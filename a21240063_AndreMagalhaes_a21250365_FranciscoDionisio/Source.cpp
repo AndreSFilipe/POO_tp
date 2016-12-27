@@ -12,6 +12,11 @@
 // fghjklkjhg
 
 
+
+
+// mais uma
+
+
 void desenharCaixa(int x, int y, int dimX, int dimY) {
 	for (int i = 0; i < dimY; i++) {
 		Consola::gotoxy(x, y + i);			cout << (char)186; // linha da esquerda
