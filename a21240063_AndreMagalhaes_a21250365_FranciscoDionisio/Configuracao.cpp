@@ -39,34 +39,35 @@ void Configuracao::processaComando(string primeira, string segunda, string terce
 	if (primeira == "dim" && dimT == false) {
 		dimT = true;
 		Configuracao::setDim(stoi(segunda), stoi(terceira));
-	}
+	} else
+	if (primeira == "moedas") {
+		moedasT = true;
+		Configuracao::setMoedas(stoi(segunda));
+	} else
+	if (primeira == "oponentes" && dimT == true) {
+		oponT = true;
+		Configuracao::setOponentes(stoi(segunda));
+	} else
+	if (primeira == "castelo" && oponT == true)
+		Configuracao::setPosCastelo(segunda, stoi(terceira), stoi(quarta));
 	else
-		if (primeira == "moedas") {
-			moedasT = true;
-			Configuracao::setMoedas(stoi(segunda));
-		}
-		else
-			if (primeira == "oponentes" && dimT == true) {
-				oponT = true;
-				Configuracao::setOponentes(stoi(segunda));
-			}
-			else
-				if (primeira == "castelo" && oponT == true) {
-					Configuracao::setPosCastelo(segunda, stoi(terceira), stoi(quarta));
-				}
-				else
-					if (primeira == "inicio") {
-						Configuracao::setInicio();
-					} else 
-						if (primeira == "mkperfil") {
-							Configuracao::mkperfil(segunda);
-						} else 
-							if (primeira == "addperfil") {
-								Configuracao::addperfil(segunda, terceira);
-							} else {
-							this->comInv = true;
-						}
+	if (primeira == "inicio")
+		Configuracao::setInicio();
+	else 
+	if (primeira == "mkperfil")
+		Configuracao::mkperfil(segunda);
+	else 
+	if (primeira == "addperfil")
+		Configuracao::addperfil(segunda, terceira);
+	else
+	if (primeira == "subperfil")
+		Configuracao::subperfil(segunda, terceira);
+	else
+	if (primeira == "rmperfil")
+		Configuracao::rmperfil(segunda);
+	else { this->comInv = true;	}
 }
+
 void Configuracao::loadFile(string fich) {
 	ifstream infile(fich); if (!infile) { this->comInv = true; return; }
 
@@ -85,7 +86,7 @@ void Configuracao::setInicio() {
 void Configuracao::mkperfil(string segunda){
 	const char *letra = segunda.c_str();
 
-	for (int i = 0; i < perfis.size();i++) // valida de há um igual
+	for (int i = 0; i < perfis.size();i++) // valida se há um igual
 		if (perfis[i]->getID() == *letra) {
 			this->comInv = true;
 			return;
@@ -99,6 +100,12 @@ void Configuracao::addperfil(string segunda, string terceira)
 	const char *letra = segunda.c_str();
 
 	int i=0;
+	/*
+	if (perfis.size() == 0) {
+		this->comInv = true;
+		return;
+	}*/
+
 	while (perfis[i]->getID() != *letra){
 		i++;
 		if (i > perfis.size()) {
@@ -127,6 +134,46 @@ void Configuracao::addperfil(string segunda, string terceira)
 
 	//perfis[i]->addCarateristica(new Superior(3,2,1));
 }
+void Configuracao::subperfil(string segunda, string terceira)
+{
+
+	const char *letra = segunda.c_str();
+
+	int i = 0;
+	while (perfis[i]->getID() != *letra) {
+		i++;
+		if (i > perfis.size()) {
+			this->comInv = true; 
+			return;
+		}
+	}
+
+	int j;
+	vector<string> car = perfis[i]->getCar();
+	for (j = 0; car[j] != terceira; j++) {
+		if (car[j] == terceira)
+			break;
+	}
+
+	perfis[i]->subCarateristica(j);
+
+}
+void Configuracao::rmperfil(string segunda)
+{
+	const char *letra = segunda.c_str();
+	int i = 0;
+	while (perfis[i]->getID() != *letra) {
+		i++;
+		if (i > perfis.size()) {
+			this->comInv = true;
+			return;
+		}
+	}
+	perfis.erase(perfis.begin() + i);
+	//perfis[i].erase(perfis.size() + i);
+
+}
+
 vector<string> Configuracao::getCar(int i)
 {
 	return vector<string>(perfis[i]->getCar());

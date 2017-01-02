@@ -29,6 +29,8 @@ public:
 	void setInicio();
 	void mkperfil(string segunda);
 	void addperfil(string segunda, string terceira);
+	void subperfil(string segunda, string terceira);
+	void rmperfil(string segunda);
 	vector<string> getCar(int i);
 
 

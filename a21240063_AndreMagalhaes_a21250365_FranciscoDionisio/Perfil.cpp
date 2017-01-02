@@ -26,6 +26,14 @@ bool Perfil::addCarateristica(Caracteristica *c){
 
 	return true;
 }
+void Perfil::subCarateristica(int i) {
+	// verificar se foi bem sucedido
+	this->forca += caracteristicas[i]->getForca();
+	this->custo -= caracteristicas[i]->getCusto();
+	this->caracteristicas.erase(caracteristicas.begin() + i);
+	this->nomesCar.erase(nomesCar.begin() + i);
+}
+
 void Perfil::perfilMenu(string nome) {
 	
 }

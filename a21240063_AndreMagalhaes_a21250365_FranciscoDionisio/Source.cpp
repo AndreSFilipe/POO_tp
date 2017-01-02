@@ -138,16 +138,11 @@ int main() {
 		iss >> primeira >> segunda >> terceira >> quarta;
 
 
-		if (primeira == "load") {
+		if (primeira == "load")
 			c.loadFile(segunda);
-		}
 		else
-			if (primeira == "inicio") {
-				c.setInicio(); // chamar pela funcao?
-			}
-			else {
-				c.processaComando(primeira, segunda, terceira, quarta);
-			}
+			c.processaComando(primeira, segunda, terceira, quarta);
+		
 
 	} while (c.getInicio() == false);
 

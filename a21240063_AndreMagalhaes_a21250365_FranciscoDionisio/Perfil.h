@@ -66,6 +66,7 @@ public:
 	Perfil(char i);
 	Perfil(Perfil & p);
 	bool addCarateristica(Caracteristica * c);
+	void subCarateristica(int i);
 	void perfilMenu(string nome);
 	char getID();
 	int getForca();
